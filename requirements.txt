@@ -1,4 +1,7 @@
-psutil
+wget
+chardet
 argparse
+pathlib2
+requests
 user_agent
 selenium-wire
