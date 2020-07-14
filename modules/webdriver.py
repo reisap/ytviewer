@@ -10,22 +10,16 @@ from .helpers import Input
 
 class Extension(object):
 	extensions_path=Path(__file__).resolve().parent.parent/'extensions'
-	def download(extension_id):
-		return wget.download('https://clients2.google.com/service/update2/crx?response=redirect&prodversion=9999&acceptformat=crx2,crx3&x=id%3D{}%26uc'.format(extension_id))
-	def install_if_not_installed():
-		extensions={
-			#'cmedhionkhpnakcndndgjdbohmhepckk':'Adblock for YouTube',
-			'cmjcmogcdofcljpojplgmfpheblcaehh':'Easy WebRTC Block'
-		}
-		Extension.extensions_path.mkdir(exist_ok=True)
-		extension_paths=[]
-		for extension_id,extension_name in extensions.items():
-			extension_path=Extension.extensions_path/f'{extension_name}.crx'
+	def download():
+		return wget.download('https://clients2.google.com/service/update2/crx?response=redirect&prodversion=9999&acceptformat=crx2,crx3&x=id%3Dcmjcmogcdofcljpojplgmfpheblcaehh%26uc')
+	def install_if_not_installed(browser):
+		if browser=='chrome':
+			extension_path=Extension.extensions_path/'Easy WebRTC Block.crx'
 			if not extension_path.is_file():
-				filename=Extension.download(extension_id)
+				filename=Extension.download()
+				Extension.extensions_path.mkdir(exist_ok=True)
 				Path(filename).rename(extension_path)
-			extension_paths.append(extension_path)
-		return extension_paths
+			return extension_path
 
 class WebDriver(object):
 	system=platform.system()

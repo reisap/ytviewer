@@ -41,21 +41,21 @@ make
 
 * Run following command in the command prompt or the terminal:
 ```
-python main.py -u URL -B <firefox|chrome> [-p N] [-P FILE] [-R REFERER|FILE] [-U USER_AGENT|FILE] [-D N]
+python main.py -u URL -B <firefox|chrome> -p N -P FILE -R <REFERER|FILE> -U <USER_AGENT|FILE> -D N
 ```
 
 ## Documentation
 
-| Short                | Long                          | Description                                    | Default value           | Required           |
-| :------------------- | :---------------------------- | :--------------------------------------------: | :---------------------: | :----------------: |
-| -h                   | --help                        | Show help message and exit.                    | :x:                     | :x:                |
-| -u URL               | --url URL                     | Set URL.                                       | :x:                     | :heavy_check_mark: |
-| -B <firefox\|chrome> | --browser <firefox\|chrome>   | Set browser.                                   | :x:                     | :heavy_check_mark: |
-| -p N                 | --processes N                 | Set number of processes.                       | 15                      | :x:                |
-| -P FILE              | --proxies FILE                | Set path to proxies list.                      | Proxy list from API.    | :x:                |
-| -R REFERER\|FILE     | --referer REFERER\|FILE       | Set referer \| Set path to referer list.       | https://google.com      | :x:                |
-| -U USER_AGENT\|FILE  | --user-agent USER_AGENT\|FILE | Set user agent \| Set path to user agent list. | Random user agent.      | :x:                |
-| -D N                 | --duration N                  | Set duration of view.                          | 35-85% of video length. | :x:
+| Short                  | Long                          | Description                                    | Default value           |
+| :--------------------- | :---------------------------- | :--------------------------------------------: | :---------------------: |
+| -h                     | --help                        | Show help message and exit.                    | :x:                     |
+| -u URL                 | --url URL                     | Set URL.                                       | :x:                     |
+| -p N                   | --processes N                 | Set number of processes.                       | 15                      |
+| -B <firefox\|chrome>   | --browser <firefox\|chrome>   | Set browser.                                   | :x:                     |
+| -P FILE                | --proxies FILE                | Set path to proxies list.                      | Proxy list from API.    |
+| -R <REFERER\|FILE>     | --referer REFERER\|FILE       | Set referer \| Set path to referer list.       | https://google.com      |
+| -U <USER_AGENT\|FILE>  | --user-agent USER_AGENT\|FILE | Set user agent \| Set path to user agent list. | Random user agent.      |
+| -D N                   | --duration N                  | Set duration of view.                          | 35-85% of video length. |
 
 ## Disclaimer
 
