@@ -30,7 +30,7 @@ if __name__=='__main__':
 	user_agents=UserAgents(Input.get('User agents [random user agent]') or args.user_agent)
 	executable_path=WebDriver.install_if_not_installed(browser)
 	extension_path=Extension.install_if_not_installed(browser)
-	processes=[Process(target=Bot().run,args=(urls,browser,proxies,referers,user_agents,args.duration,executable_path,extension_paths),daemon=True) for _ in range(args.processes)]
+	processes=[Process(target=Bot().run,args=(urls,browser,proxies,referers,user_agents,args.duration,executable_path,extension_path),daemon=True) for _ in range(args.processes)]
 	print(f'Starting {args.processes} processes...')
 	for process in processes:
 		process.start()
