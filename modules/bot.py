@@ -1,7 +1,6 @@
 import os
 import time
 import random
-import signal
 import logging
 from pathlib import Path
 from selenium.common.exceptions import TimeoutException
@@ -12,13 +11,9 @@ from selenium.webdriver.support.wait import WebDriverWait
 from seleniumwire.webdriver import Chrome,ChromeOptions,Firefox,FirefoxOptions
 
 class Bot(object):
-	def __init__(self):
-		self.driver=None
-		self.running=True
-	def run(self,urls,browser,proxies,referers,user_agents,duration,executable_path,extension_paths):
-		signal.signal(signal.SIGINT,self.quit)
+	def run(urls,browser,proxies,referers,user_agents,duration,executable_path,extension_paths):
 		logging.basicConfig(level=logging.CRITICAL)
-		while self.running:
+		while True:
 			try:
 				proxy=proxies.get()
 				seleniumwire_options={
@@ -49,43 +44,38 @@ class Bot(object):
 						'general.useragent.override':user_agent
 					})
 					WebDriver=Firefox
-				self.driver=WebDriver(
+				driver=WebDriver(
 					executable_path=executable_path,
 					options=options,
 					service_log_path=os.devnull,
 					seleniumwire_options=seleniumwire_options
 				)
-				self.driver.minimize_window()
-				self.driver.header_overrides={
+				driver.minimize_window()
+				driver.header_overrides={
 					'Referer':referers.get()
 				}
-				self.driver.set_page_load_timeout(60)
+				driver.set_page_load_timeout(60)
 				try:
-					self.driver.get(urls.get())
+					driver.get(urls.get())
 				except:
 					pass
 				finally:
-					if self.driver.title.endswith('YouTube'):
+					if driver.title.endswith('YouTube'):
 						try:
-							WebDriverWait(self.driver,3).until(EC.element_to_be_clickable((By.CLASS_NAME,'ytp-large-play-button'))).click()
+							WebDriverWait(driver,3).until(EC.element_to_be_clickable((By.CLASS_NAME,'ytp-large-play-button'))).click()
 						except:
 							pass
 						finally:
 							if duration:
 								time.sleep(duration)
 							else:
-								video=WebDriverWait(self.driver,3).until(EC.presence_of_element_located((By.CLASS_NAME,'html5-main-video')))
-								video_duration=self.driver.execute_script('return arguments[0].getDuration()',video)
+								video=WebDriverWait(driver,3).until(EC.presence_of_element_located((By.CLASS_NAME,'html5-main-video')))
+								video_duration=driver.execute_script('return arguments[0].getDuration()',video)
 								time.sleep(float(video_duration)*random.uniform(0.35,0.85))
 			except:
 				pass
 			finally:
-				self.close()
-	def close(self):
-		try:
-			self.driver.quit()
-		except:
-			pass
-	def quit(self,*args):
-		self.running=False
-		self.close()
+				try:
+					driver.quit()
+				except:
+					pass
